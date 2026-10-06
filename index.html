@@ -1,1 +1,2228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For Shryss ❤️</title>
 
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at top,#65001f 0%,#25000d 45%,#090006 100%);
+  overflow:hidden;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  width:100%;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+
+.screen.active{
+  display:flex;
+}
+
+.card{
+  width:min(680px,94vw);
+  max-height:92vh;
+  overflow-y:auto;
+  padding:30px 22px;
+  text-align:center;
+  border-radius:28px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 20px 70px rgba(0,0,0,.5);
+  backdrop-filter:blur(14px);
+}
+
+h1{
+  font-size:clamp(38px,10vw,68px);
+  margin-bottom:18px;
+}
+
+h2{
+  font-size:clamp(27px,7vw,43px);
+  margin-bottom:15px;
+}
+
+p{
+  color:#ffd9e5;
+  line-height:1.65;
+  margin-bottom:18px;
+}
+
+.glow{
+  color:#ff729b;
+  text-shadow:0 0 25px rgba(255,45,105,.8);
+}
+
+.bigHeart{
+  font-size:82px;
+  margin-bottom:12px;
+  animation:pulse 1.4s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.13)}
+}
+
+button{
+  border:0;
+  padding:14px 24px;
+  margin:7px;
+  border-radius:999px;
+  color:#fff;
+  background:linear-gradient(135deg,#ff165d,#ff527f);
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(255,25,90,.3);
+  transition:.2s;
+}
+
+button:hover{
+  transform:scale(1.04);
+}
+
+button:active{
+  transform:scale(.96);
+}
+
+button:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.choice{
+  display:block;
+  width:100%;
+  margin:10px 0;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);
+}
+
+.choice:hover{
+  background:rgba(255,80,130,.2);
+}
+
+.progress{
+  width:100%;
+  height:9px;
+  background:rgba(255,255,255,.12);
+  border-radius:20px;
+  overflow:hidden;
+  margin:18px 0;
+}
+
+.progressBar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#ff2667,#ff9ab5);
+  transition:.4s;
+}
+
+.gameTag{
+  color:#ff9ab5;
+  font-size:13px;
+  letter-spacing:3px;
+  margin-bottom:10px;
+}
+
+.small{
+  font-size:13px;
+  opacity:.65;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.feedback{
+  min-height:25px;
+  margin:12px 0;
+  font-weight:bold;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:20px auto;
+  max-width:420px;
+}
+
+.memoryCard{
+  aspect-ratio:1;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);
+  color:white;
+  font-size:28px;
+  padding:0;
+  margin:0;
+}
+
+#gameArea{
+  min-height:180px;
+}
+
+.hud{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin:10px 0;
+  color:#ffd3df;
+}
+
+.hud span{
+  padding:7px 12px;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+}
+
+.heartTarget{
+  position:relative;
+  height:330px;
+  margin:15px 0;
+  border-radius:20px;
+  background:rgba(0,0,0,.16);
+  overflow:hidden;
+}
+
+.targetHeart{
+  position:absolute;
+  border:0;
+  padding:0;
+  margin:0;
+  background:none;
+  box-shadow:none;
+  font-size:38px;
+  cursor:pointer;
+}
+
+.targetHeart:hover{
+  transform:scale(1.2);
+}
+
+.storyOption{
+  display:block;
+  width:100%;
+  text-align:left;
+  border-radius:16px;
+}
+
+#musicButton{
+  position:fixed;
+  top:14px;
+  right:14px;
+  z-index:1000;
+  padding:10px 15px;
+  font-size:13px;
+}
+
+.floatingHeart{
+  position:fixed;
+  bottom:-40px;
+  pointer-events:none;
+  animation:floatHeart 6s linear forwards;
+  z-index:0;
+}
+
+@keyframes floatHeart{
+  from{
+    transform:translateY(0) rotate(0);
+    opacity:0;
+  }
+  10%{opacity:1}
+  to{
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+.card>*{
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:500px){
+  .card{
+    padding:24px 16px;
+  }
+
+  .grid{
+    gap:7px;
+  }
+
+  button{
+    font-size:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicButton" onclick="toggleMusic()">🔇 Music</button>
+
+
+<!-- INTRO -->
+
+<section class="screen active" id="introScreen">
+
+  <div class="card">
+
+    <div class="bigHeart">❤️</div>
+
+    <h1 class="glow">Hey Shryss...</h1>
+
+    <p>
+      I made a little journey for you. 💗
+      <br><br>
+      There are <b>8 challenges</b>.
+      <br>
+      You can't skip them.
+      😌
+    </p>
+
+    <button onclick="startJourney()">
+      ARE YOU READY? 💕
+    </button>
+
+    <p class="small">
+      Take your time... this isn't meant to be rushed.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- MENU -->
+
+<section class="screen" id="menuScreen">
+
+  <div class="card">
+
+    <h2>❤️ Love Quest</h2>
+
+    <p>
+      Complete each challenge to unlock the next one.
+    </p>
+
+    <div class="progress">
+      <div class="progressBar" id="overallBar"></div>
+    </div>
+
+    <div id="menuButtons"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 1 -->
+
+<section class="screen" id="game1Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 1 / 8</div>
+
+    <h2>💌 Love Quiz</h2>
+
+    <p>
+      Let's see how well you know the person behind this little surprise.
+    </p>
+
+    <div class="progress">
+      <div class="progressBar" id="quizBar"></div>
+    </div>
+
+    <div id="quizArea"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 2 -->
+
+<section class="screen" id="game2Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 2 / 8</div>
+
+    <h2>🔎 Hidden Hearts</h2>
+
+    <p>
+      Find every heart. They won't stay in the same place.
+    </p>
+
+    <div class="hud">
+      <span id="heartCount">❤️ 0 / 12</span>
+      <span id="heartTimer">⏱️ 60</span>
+    </div>
+
+    <div class="heartTarget" id="heartTarget"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 3 -->
+
+<section class="screen" id="game3Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 3 / 8</div>
+
+    <h2>🧠 Memory Match</h2>
+
+    <p>
+      Match all the pairs. Take your time.
+    </p>
+
+    <div class="hud">
+      <span id="memoryMoves">Moves: 0</span>
+      <span id="memoryPairs">Pairs: 0 / 8</span>
+    </div>
+
+    <div class="grid" id="memoryGrid"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 4 -->
+
+<section class="screen" id="game4Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 4 / 8</div>
+
+    <h2>💭 Our Story</h2>
+
+    <p id="storyText"></p>
+
+    <div id="storyOptions"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 5 -->
+
+<section class="screen" id="game5Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 5 / 8</div>
+
+    <h2>🎯 Heart Catcher</h2>
+
+    <p>
+      Catch <b>20 hearts</b>. They get faster as you progress.
+    </p>
+
+    <div class="hud">
+      <span id="catchScore">❤️ 0 / 20</span>
+      <span id="catchTimer">⏱️ 45</span>
+    </div>
+
+    <div class="heartTarget" id="catchArea"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 6 -->
+
+<section class="screen" id="game6Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 6 / 8</div>
+
+    <h2>🧩 Love Puzzle</h2>
+
+    <p id="puzzleQuestion"></p>
+
+    <div id="puzzleOptions"></div>
+
+    <div class="feedback" id="puzzleFeedback"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 7 -->
+
+<section class="screen" id="game7Screen">
+
+  <div class="card">
+
+    <div class="gameTag">CHALLENGE 7 / 8</div>
+
+    <h2>💕 Know Me?</h2>
+
+    <p>
+      One last set of questions before the final challenge.
+    </p>
+
+    <div class="progress">
+      <div class="progressBar" id="knowledgeBar"></div>
+    </div>
+
+    <div id="knowledgeArea"></div>
+
+  </div>
+
+</section>
+
+
+<!-- GAME 8 -->
+
+<section class="screen" id="game8Screen">
+
+  <div class="card">
+
+    <div class="gameTag">FINAL CHALLENGE / 8</div>
+
+    <h2>❤️ The Final Test</h2>
+
+    <p id="finalQuestion"></p>
+
+    <div id="finalOptions"></div>
+
+  </div>
+
+</section>
+
+
+<!-- END -->
+
+<section class="screen" id="endScreen">
+
+  <div class="card">
+
+    <div class="bigHeart">💖</div>
+
+    <h1 class="glow">You Made It.</h1>
+
+    <p>
+      You actually completed the whole journey.
+      🥹
+      <br><br>
+      And now there's only one thing left to say...
+    </p>
+
+    <h1>❤️</h1>
+
+    <h2>I LOVE YOU SHRYSS</h2>
+
+    <p>
+      More than any game could ever explain.
+    </p>
+
+    <button onclick="location.reload()">
+      🔄 Play Again
+    </button>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   MAIN GAME STATE
+========================= */
+
+let completed = [];
+
+let music = null;
+let musicPlaying = false;
+
+
+/* =========================
+   SCREEN CONTROL
+========================= */
+
+function showScreen(id){
+
+  document.querySelectorAll(".screen")
+    .forEach(screen=>{
+      screen.classList.remove("active");
+    });
+
+  document.getElementById(id)
+    .classList.add("active");
+}
+
+
+/* =========================
+   START
+========================= */
+
+function startJourney(){
+
+  showScreen("game1Screen");
+
+  startQuiz();
+
+}
+
+
+/* =========================
+   COMPLETE GAME
+========================= */
+
+function completeGame(number){
+
+  if(!completed.includes(number)){
+    completed.push(number);
+  }
+
+  updateOverall();
+
+  if(number < 8){
+
+    showScreen("menuScreen");
+
+    buildMenu();
+
+  }else{
+
+    showScreen("endScreen");
+
+  }
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+function buildMenu(){
+
+  const box=document.getElementById("menuButtons");
+
+  box.innerHTML="";
+
+  for(let i=1;i<=8;i++){
+
+    const button=document.createElement("button");
+
+    if(completed.includes(i)){
+
+      button.innerText="✅ Challenge "+i+" Completed";
+      button.disabled=true;
+
+    }else if(
+      i===completed.length+1
+    ){
+
+      button.innerText="🎮 Continue Challenge "+i;
+
+      button.onclick=()=>{
+        openGame(i);
+      };
+
+    }else{
+
+      button.innerText="🔒 Challenge "+i;
+      button.disabled=true;
+
+    }
+
+    box.appendChild(button);
+
+  }
+
+}
+
+
+/* =========================
+   OPEN GAME
+========================= */
+
+function openGame(number){
+
+  showScreen("game"+number+"Screen");
+
+  if(number===1) startQuiz();
+  if(number===2) startHiddenHearts();
+  if(number===3) startMemory();
+  if(number===4) startStory();
+  if(number===5) startCatchGame();
+  if(number===6) startPuzzle();
+  if(number===7) startKnowledge();
+  if(number===8) startFinalChallenge();
+
+}
+
+
+/* =========================
+   OVERALL PROGRESS
+========================= */
+
+function updateOverall(){
+
+  const percentage=
+    (completed.length/8)*100;
+
+  document.getElementById("overallBar")
+    .style.width=percentage+"%";
+
+}
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+function floatingHeart(){
+
+  const heart=document.createElement("div");
+
+  heart.className="floatingHeart";
+
+  heart.innerText=
+    ["❤️","💕","💗","💖","💘"]
+    [Math.floor(Math.random()*5)];
+
+  heart.style.left=
+    Math.random()*100+"%";
+
+  heart.style.fontSize=
+    (14+Math.random()*20)+"px";
+
+  heart.style.animationDuration=
+    (5+Math.random()*4)+"s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },9000);
+
+}
+
+setInterval(floatingHeart,700);
+
+
+/* =========================
+   MUSIC
+========================= */
+
+function toggleMusic(){
+
+  /*
+    No external music is required for the games.
+    This button creates a simple browser tone loop,
+    so the page remains functional even without internet.
+  */
+
+  if(!music){
+
+    try{
+
+      const AudioContext=
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+      if(!AudioContext){
+
+        alert("Your browser doesn't support this music feature.");
+
+        return;
+      }
+
+      music=new AudioContext();
+
+    }catch(e){
+
+      return;
+
+    }
+
+  }
+
+  if(musicPlaying){
+
+    music.suspend();
+
+    musicPlaying=false;
+
+    document.getElementById("musicButton")
+      .innerText="🔇 Music";
+
+  }else{
+
+    music.resume();
+
+    musicPlaying=true;
+
+    document.getElementById("musicButton")
+      .innerText="🔊 Music";
+
+    playTone();
+
+  }
+
+}
+
+
+function playTone(){
+
+  if(!musicPlaying) return;
+
+  try{
+
+    const oscillator=
+      music.createOscillator();
+
+    const gain=
+      music.createGain();
+
+    oscillator.frequency.value=
+      440;
+
+    oscillator.type="sine";
+
+    gain.gain.setValueAtTime(
+      .025,
+      music.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      music.currentTime+.8
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(music.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+      music.currentTime+.8
+    );
+
+  }catch(e){}
+
+  setTimeout(playTone,2200);
+
+}
+
+
+/* =========================
+   PLACEHOLDER GAME FUNCTIONS
+   PART 2 WILL REPLACE THESE
+========================= */
+/* =========================
+   GAME 1 — LOVE QUIZ
+========================= */
+
+let quizIndex=0;
+let quizScore=0;
+
+const quizQuestions=[
+
+{
+q:"What would make this little journey more special?",
+a:[
+"Taking your time ❤️",
+"Skipping everything 😂",
+"Closing the page 😭",
+"Not playing"
+],
+correct:0
+},
+
+{
+q:"Which one sounds most like a perfect romantic moment?",
+a:[
+"A quiet late-night conversation 🌙",
+"Arguing about everything",
+"Doing homework",
+"Watching the loading screen"
+],
+correct:0
+},
+
+{
+q:"If someone made this entire website for you, what would you do?",
+a:[
+"Smile ❤️",
+"Immediately inspect the code 😂",
+"Ignore it",
+"Ask why"
+],
+correct:0
+},
+
+{
+q:"What's more important in a relationship?",
+a:[
+"Trust ❤️",
+"Winning every argument",
+"Being perfect",
+"Never talking"
+],
+correct:0
+},
+
+{
+q:"Pick your ideal date:",
+a:[
+"Long conversation + food 🍝",
+"Running a marathon",
+"Studying all night",
+"Cleaning the house"
+],
+correct:0
+},
+
+{
+q:"What makes a memory unforgettable?",
+a:[
+"The person you're with ❤️",
+"The weather",
+"The location only",
+"The price"
+],
+correct:0
+},
+
+{
+q:"If you had one wish for this journey...",
+a:[
+"That it never ends 💕",
+"That it loads faster",
+"That there are fewer games",
+"That the music stops"
+],
+correct:0
+},
+
+{
+q:"Last question of this round: ready for the next game?",
+a:[
+"YES ❤️",
+"Maybe",
+"No",
+"I give up"
+],
+correct:0
+}
+
+];
+
+
+function startQuiz(){
+
+  quizIndex=0;
+  quizScore=0;
+
+  renderQuiz();
+
+}
+
+
+function renderQuiz(){
+
+  const area=
+    document.getElementById("quizArea");
+
+  const bar=
+    document.getElementById("quizBar");
+
+  if(quizIndex>=quizQuestions.length){
+
+    area.innerHTML=`
+      <h2>🥹 Perfect!</h2>
+      <p>
+        You finished the first challenge.
+        <br>
+        Score: <b>${quizScore}/${quizQuestions.length}</b>
+      </p>
+
+      <button onclick="completeGame(1)">
+        Continue ❤️
+      </button>
+    `;
+
+    bar.style.width="100%";
+
+    return;
+  }
+
+  const question=
+    quizQuestions[quizIndex];
+
+  bar.style.width=
+    ((quizIndex)/quizQuestions.length*100)+"%";
+
+  area.innerHTML=`
+
+    <h3>
+      ${quizIndex+1}.
+      ${question.q}
+    </h3>
+
+    <div id="quizChoices"></div>
+
+    <div class="feedback" id="quizFeedback"></div>
+
+  `;
+
+  const choices=
+    document.getElementById("quizChoices");
+
+  question.a.forEach((answer,index)=>{
+
+    const button=
+      document.createElement("button");
+
+    button.className="choice";
+
+    button.innerText=answer;
+
+    button.onclick=()=>{
+
+      if(index===question.correct){
+
+        quizScore++;
+
+        document.getElementById("quizFeedback")
+          .innerText="Correct! ❤️";
+
+      }else{
+
+        document.getElementById("quizFeedback")
+          .innerText="Nice try 😌";
+
+      }
+
+      choices
+        .querySelectorAll("button")
+        .forEach(b=>b.disabled=true);
+
+      setTimeout(()=>{
+
+        quizIndex++;
+
+        renderQuiz();
+
+      },700);
+
+    };
+
+    choices.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   GAME 2 — HIDDEN HEARTS
+========================= */
+
+let hiddenFound=0;
+let hiddenTimer=60;
+let hiddenInterval=null;
+
+
+function startHiddenHearts(){
+
+  clearInterval(hiddenInterval);
+
+  hiddenFound=0;
+  hiddenTimer=60;
+
+  document.getElementById("heartCount")
+    .innerText="❤️ 0 / 12";
+
+  document.getElementById("heartTimer")
+    .innerText="⏱️ 60";
+
+  const area=
+    document.getElementById("heartTarget");
+
+  area.innerHTML="";
+
+  createHiddenHeart();
+
+  hiddenInterval=setInterval(()=>{
+
+    hiddenTimer--;
+
+    document.getElementById("heartTimer")
+      .innerText="⏱️ "+hiddenTimer;
+
+    if(hiddenTimer<=0){
+
+      clearInterval(hiddenInterval);
+
+      if(hiddenFound<12){
+
+        hiddenTimer=60;
+
+        document.getElementById("heartTimer")
+          .innerText="⏱️ 60";
+
+        area.innerHTML="";
+
+        createHiddenHeart();
+
+      }
+
+    }
+
+  },1000);
+
+}
+
+
+function createHiddenHeart(){
+
+  const area=
+    document.getElementById("heartTarget");
+
+  area.innerHTML="";
+
+  for(let i=0;i<12-hiddenFound;i++){
+
+    const heart=
+      document.createElement("button");
+
+    heart.className="targetHeart";
+
+    heart.innerText="❤️";
+
+    heart.style.left=
+      (5+Math.random()*85)+"%";
+
+    heart.style.top=
+      (5+Math.random()*80)+"%";
+
+    heart.style.fontSize=
+      (20+Math.random()*18)+"px";
+
+    heart.onclick=()=>{
+
+      hiddenFound++;
+
+      document.getElementById("heartCount")
+        .innerText=
+        "❤️ "+hiddenFound+" / 12";
+
+      if(hiddenFound>=12){
+
+        clearInterval(hiddenInterval);
+
+        area.innerHTML=`
+
+          <h2 style="padding-top:100px">
+            🎉 You Found Them All!
+          </h2>
+
+          <button onclick="completeGame(2)">
+            Continue 💕
+          </button>
+
+        `;
+
+      }else{
+
+        createHiddenHeart();
+
+      }
+
+    };
+
+    area.appendChild(heart);
+
+  }
+
+}
+
+
+/* =========================
+   GAME 3 — MEMORY MATCH
+========================= */
+
+let memoryCards=[];
+let memoryOpen=[];
+let memoryPairs=0;
+let memoryMoves=0;
+let memoryLocked=false;
+
+
+function startMemory(){
+
+  memoryPairs=0;
+  memoryMoves=0;
+  memoryOpen=[];
+  memoryLocked=false;
+
+  const symbols=[
+    "❤️","💕","💖","💗",
+    "💘","🌹","💋","✨"
+  ];
+
+  memoryCards=
+    [...symbols,...symbols]
+    .sort(()=>Math.random()-.5);
+
+  document.getElementById("memoryMoves")
+    .innerText="Moves: 0";
+
+  document.getElementById("memoryPairs")
+    .innerText="Pairs: 0 / 8";
+
+  renderMemory();
+
+}
+
+
+function renderMemory(){
+
+  const grid=
+    document.getElementById("memoryGrid");
+
+  grid.innerHTML="";
+
+  memoryCards.forEach((symbol,index)=>{
+
+    const button=
+      document.createElement("button");
+
+    button.className="memoryCard";
+
+    button.innerText=
+      memoryOpen.includes(index)
+      ? symbol
+      : "❔";
+
+    button.onclick=()=>{
+      flipMemory(index);
+    };
+
+    grid.appendChild(button);
+
+  });
+
+}
+
+
+function flipMemory(index){
+
+  if(
+    memoryLocked ||
+    memoryOpen.includes(index)
+  ) return;
+
+  memoryOpen.push(index);
+
+  renderMemory();
+
+  if(memoryOpen.length===2){
+
+    memoryMoves++;
+
+    document.getElementById("memoryMoves")
+      .innerText=
+      "Moves: "+memoryMoves;
+
+    const [a,b]=memoryOpen;
+
+    if(memoryCards[a]===memoryCards[b]){
+
+      memoryPairs++;
+
+      document.getElementById("memoryPairs")
+        .innerText=
+        "Pairs: "+memoryPairs+" / 8";
+
+      memoryOpen=[];
+
+      if(memoryPairs===8){
+
+        setTimeout(()=>{
+
+          document.getElementById("memoryGrid")
+            .innerHTML=`
+
+              <h2>💖 Perfect Match!</h2>
+
+              <p>
+                You completed it in
+                <b>${memoryMoves}</b> moves.
+              </p>
+
+              <button onclick="completeGame(3)">
+                Continue ❤️
+              </button>
+
+            `;
+
+        },500);
+
+      }
+
+    }else{
+
+      memoryLocked=true;
+
+      setTimeout(()=>{
+
+        memoryOpen=[];
+
+        memoryLocked=false;
+
+        renderMemory();
+
+      },800);
+
+    }
+
+  }
+
+}
+
+
+/    button.onclick=()=>{
+
+      storyStep=option[1];
+
+      if(storyStep>=storyData.length){
+
+        completeGame(4);
+
+      }else{
+
+        renderStory();
+
+      }
+
+    };
+
+    options.appendChild(button);
+
+  });
+
+}
+/* =========================
+   GAME 5 — HEART CATCHER
+========================= */
+
+let catchScore=0;
+let catchTime=45;
+let catchInterval=null;
+let heartSpawn=null;
+
+function startCatchGame(){
+
+  clearInterval(catchInterval);
+  clearInterval(heartSpawn);
+
+  catchScore=0;
+  catchTime=45;
+
+  const area=document.getElementById("catchArea");
+
+  area.innerHTML="";
+
+  document.getElementById("catchScore")
+    .innerText="❤️ 0 / 20";
+
+  document.getElementById("catchTimer")
+    .innerText="⏱️ 45";
+
+  spawnCatchHeart();
+
+  heartSpawn=setInterval(()=>{
+
+    spawnCatchHeart();
+
+  },900);
+
+  catchInterval=setInterval(()=>{
+
+    catchTime--;
+
+    document.getElementById("catchTimer")
+      .innerText="⏱️ "+catchTime;
+
+    if(catchTime<=0){
+
+      clearInterval(catchInterval);
+      clearInterval(heartSpawn);
+
+      if(catchScore>=20){
+
+        finishCatch();
+
+      }else{
+
+        catchTime=45;
+
+        document.getElementById("catchTimer")
+          .innerText="⏱️ 45";
+
+      }
+
+    }
+
+  },1000);
+
+}
+
+
+function spawnCatchHeart(){
+
+  const area=document.getElementById("catchArea");
+
+  if(!area) return;
+
+  const heart=document.createElement("button");
+
+  heart.className="targetHeart";
+
+  heart.innerText=
+    ["❤️","💖","💕","💗"]
+    [Math.floor(Math.random()*4)];
+
+  heart.style.left=
+    (3+Math.random()*88)+"%";
+
+  heart.style.top=
+    (3+Math.random()*82)+"%";
+
+  const size=
+    Math.max(
+      22,
+      42-(catchScore*.8)
+    );
+
+  heart.style.fontSize=size+"px";
+
+  heart.onclick=()=>{
+
+    catchScore++;
+
+    document.getElementById("catchScore")
+      .innerText=
+      "❤️ "+catchScore+" / 20";
+
+    heart.remove();
+
+    if(catchScore>=20){
+
+      finishCatch();
+
+    }
+
+  };
+
+  area.appendChild(heart);
+
+  setTimeout(()=>{
+
+    if(heart.parentElement){
+      heart.remove();
+    }
+
+  },1800);
+
+}
+
+
+function finishCatch(){
+
+  clearInterval(catchInterval);
+  clearInterval(heartSpawn);
+
+  const area=document.getElementById("catchArea");
+
+  area.innerHTML=`
+
+    <div style="padding-top:90px">
+
+      <div class="bigHeart">💖</div>
+
+      <h2>You caught them all!</h2>
+
+      <p>
+        20 hearts. That's a lot of love. 😌
+      </p>
+
+      <button onclick="completeGame(5)">
+        Continue ❤️
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   GAME 6 — LOVE PUZZLE
+========================= */
+
+let puzzleIndex=0;
+let puzzleScore=0;
+
+const puzzleQuestions=[
+
+{
+q:"I have a heart but I am not alive. I can be sent but cannot walk. What am I?",
+a:["A love message ❤️","A shoe","A chair","A tree"],
+c:0
+},
+
+{
+q:"What comes next? ❤️ 💕 ❤️ 💕 ❤️ ...",
+a:["💕","🌹","💖💖","Nothing"],
+c:0
+},
+
+{
+q:"Unscramble: O V E L",
+a:["LOVE ❤️","VOLE","OVEL","LEVO"],
+c:0
+},
+
+{
+q:"Which word completes this? 'You make my heart ____.'",
+a:["smile ❤️","sleep","run away","disappear"],
+c:0
+},
+
+{
+q:"If LOVE = 4 letters, HEART = ? letters",
+a:["5","4","6","3"],
+c:0
+},
+
+{
+q:"Which one is different?",
+a:["❤️","💕","💖","⭐"],
+c:3
+},
+
+{
+q:"Complete: L _ V E",
+a:["O ❤️","A","I","U"],
+c:0
+},
+
+{
+q:"Final puzzle: What makes a relationship last?",
+a:["Trust + communication ❤️","Never talking","Always being right","Avoiding problems"],
+c:0
+}
+
+];
+
+
+function startPuzzle(){
+
+  puzzleIndex=0;
+  puzzleScore=0;
+
+  renderPuzzle();
+
+}
+
+
+function renderPuzzle(){
+
+  const question=
+    document.getElementById("puzzleQuestion");
+
+  const options=
+    document.getElementById("puzzleOptions");
+
+  const feedback=
+    document.getElementById("puzzleFeedback");
+
+  feedback.innerText="";
+
+  if(puzzleIndex>=puzzleQuestions.length){
+
+    question.innerHTML=
+      "🎉 Puzzle Complete!";
+
+    options.innerHTML=`
+
+      <p>
+        Score:
+        <b>${puzzleScore}/${puzzleQuestions.length}</b>
+      </p>
+
+      <button onclick="completeGame(6)">
+        Continue 💕
+      </button>
+
+    `;
+
+    return;
+
+  }
+
+  const item=
+    puzzleQuestions[puzzleIndex];
+
+  question.innerText=
+    (puzzleIndex+1)+". "+item.q;
+
+  options.innerHTML="";
+
+  item.a.forEach((answer,index)=>{
+
+    const button=
+      document.createElement("button");
+
+    button.className="choice";
+
+    button.innerText=answer;
+
+    button.onclick=()=>{
+
+      options
+        .querySelectorAll("button")
+        .forEach(b=>b.disabled=true);
+
+      if(index===item.c){
+
+        puzzleScore++;
+
+        feedback.innerText=
+          "✨ Correct!";
+
+      }else{
+
+        feedback.innerText=
+          "Not quite 😌";
+
+      }
+
+      setTimeout(()=>{
+
+        puzzleIndex++;
+
+        renderPuzzle();
+
+      },700);
+
+    };
+
+    options.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   GAME 7 — KNOW ME
+========================= */
+
+let knowledgeIndex=0;
+let knowledgeScore=0;
+
+const knowledgeQuestions=[
+
+{
+q:"Which would be the cutest surprise?",
+a:[
+"A handwritten letter 💌",
+"A math textbook",
+"A new alarm",
+"A blank page"
+],
+c:0
+},
+
+{
+q:"Choose the perfect late-night activity:",
+a:[
+"Talking for hours 🌙",
+"Running outside",
+"Doing taxes",
+"Cleaning"
+],
+c:0
+},
+
+{
+q:"What's more romantic?",
+a:[
+"Remembering little things ❤️",
+"Buying the most expensive thing",
+"Showing off",
+"Never listening"
+],
+c:0
+},
+
+{
+q:"If someone says 'I have something for you', what happens?",
+a:[
+"Instant curiosity 👀",
+"Ignore them",
+"Go to sleep",
+"Run away"
+],
+c:0
+},
+
+{
+q:"Which emoji fits this website best?",
+a:[
+"❤️",
+"🧱",
+"📚",
+"🚗"
+],
+c:0
+},
+
+{
+q:"What's better than a perfect photo?",
+a:[
+"A genuine memory 💕",
+"A filter",
+"A random screenshot",
+"Nothing"
+],
+c:0
+},
+
+{
+q:"Pick one:",
+a:[
+"Hugs 🫂",
+"Arguments",
+"Silence",
+"Homework"
+],
+c:0
+},
+
+{
+q:"What should never be missing?",
+a:[
+"Honesty ❤️",
+"Secrets",
+"Ego",
+"Competition"
+],
+c:0
+},
+
+{
+q:"Would you replay this whole thing?",
+a:[
+"Obviously ❤️",
+"Maybe",
+"No",
+"I'll think about it"
+],
+c:0
+},
+
+{
+q:"Are you ready for the final challenge?",
+a:[
+"YESSS ❤️🔥",
+"Not yet",
+"Maybe later",
+"I surrender"
+],
+c:0
+}
+
+];
+
+
+function startKnowledge(){
+
+  knowledgeIndex=0;
+  knowledgeScore=0;
+
+  renderKnowledge();
+
+}
+
+
+function renderKnowledge(){
+
+  const area=
+    document.getElementById("knowledgeArea");
+
+  const bar=
+    document.getElementById("knowledgeBar");
+
+  if(knowledgeIndex>=knowledgeQuestions.length){
+
+    bar.style.width="100%";
+
+    area.innerHTML=`
+
+      <h2>💕 Done!</h2>
+
+      <p>
+        Your score:
+        <b>
+          ${knowledgeScore}/${knowledgeQuestions.length}
+        </b>
+      </p>
+
+      <p>
+        One final challenge remains...
+      </p>
+
+      <button onclick="completeGame(7)">
+        Unlock Final Challenge 🔐
+      </button>
+
+    `;
+
+    return;
+
+  }
+
+  const item=
+    knowledgeQuestions[knowledgeIndex];
+
+  bar.style.width=
+    (knowledgeIndex/
+    knowledgeQuestions.length*100)+"%";
+
+  area.innerHTML=`
+
+    <h3>
+      ${knowledgeIndex+1}.
+      ${item.q}
+    </h3>
+
+    <div id="knowledgeChoices"></div>
+
+    <div class="feedback"
+         id="knowledgeFeedback">
+    </div>
+
+  `;
+
+  const choices=
+    document.getElementById(
+      "knowledgeChoices"
+    );
+
+  item.a.forEach((answer,index)=>{
+
+    const button=
+      document.createElement("button");
+
+    button.className="choice";
+
+    button.innerText=answer;
+
+    button.onclick=()=>{
+
+      choices
+        .querySelectorAll("button")
+        .forEach(b=>b.disabled=true);
+
+      if(index===item.c){
+
+        knowledgeScore++;
+
+        document.getElementById(
+          "knowledgeFeedback"
+        ).innerText=
+          "Correct! ❤️";
+
+      }else{
+
+        document.getElementById(
+          "knowledgeFeedback"
+        ).innerText=
+          "Cute answer 😌";
+
+      }
+
+      setTimeout(()=>{
+
+        knowledgeIndex++;
+
+        renderKnowledge();
+
+      },650);
+
+    };
+
+    choices.appendChild(button);
+
+  });
+
+  }
+  /* =========================
+   GAME 8 — FINAL CHALLENGE
+========================= */
+
+let finalIndex=0;
+
+const finalQuestions=[
+
+  {
+    q:"After all these games... did you enjoy the journey? ❤️",
+    a:[
+      "YES, I loved it 🥹",
+      "Maybe 😌",
+      "I survived 😂"
+    ]
+  },
+
+  {
+    q:"Would you choose one more beautiful memory together?",
+    a:[
+      "Always ❤️",
+      "Of course 💕",
+      "Obviously 😭"
+    ]
+  },
+
+  {
+    q:"Last question... should I say what I've been waiting to say?",
+    a:[
+      "YES ❤️",
+      "SAY IT 😭",
+      "Pleaseee 🥹"
+    ]
+  }
+
+];
+
+
+function startFinalChallenge(){
+
+  finalIndex=0;
+
+  renderFinalQuestion();
+
+}
+
+
+function renderFinalQuestion(){
+
+  const question=
+    document.getElementById("finalQuestion");
+
+  const options=
+    document.getElementById("finalOptions");
+
+  if(finalIndex>=finalQuestions.length){
+
+    showFinalReveal();
+
+    return;
+
+  }
+
+  const item=
+    finalQuestions[finalIndex];
+
+  question.innerText=
+    item.q;
+
+  options.innerHTML="";
+
+  item.a.forEach(answer=>{
+
+    const button=
+      document.createElement("button");
+
+    button.className="choice";
+
+    button.innerText=answer;
+
+    button.onclick=()=>{
+
+      options
+        .querySelectorAll("button")
+        .forEach(b=>b.disabled=true);
+
+      setTimeout(()=>{
+
+        finalIndex++;
+
+        renderFinalQuestion();
+
+      },500);
+
+    };
+
+    options.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   FINAL REVEAL
+========================= */
+
+function showFinalReveal(){
+
+  const question=
+    document.getElementById("finalQuestion");
+
+  const options=
+    document.getElementById("finalOptions");
+
+  question.innerHTML=`
+
+    <div class="bigHeart">
+      ❤️
+    </div>
+
+    <h2>
+      You completed everything.
+    </h2>
+
+    <p>
+      8 challenges.<br>
+      So many little moments.<br>
+      And you stayed until the very end. 🥹
+    </p>
+
+  `;
+
+  options.innerHTML=`
+
+    <button onclick="completeGame(8)">
+      Open Your Surprise 💌
+    </button>
+
+  `;
+
+}
+
+
+/* =========================
+   EXTRA FIREWORK EFFECT
+========================= */
+
+function createFirework(){
+
+  for(let i=0;i<18;i++){
+
+    const spark=
+      document.createElement("div");
+
+    spark.innerText=
+      ["❤️","✨","💖","💕"]
+      [Math.floor(Math.random()*4)];
+
+    spark.style.position="fixed";
+
+    spark.style.left=
+      (20+Math.random()*60)+"%";
+
+    spark.style.top=
+      (20+Math.random()*45)+"%";
+
+    spark.style.fontSize=
+      (16+Math.random()*25)+"px";
+
+    spark.style.zIndex="999";
+
+    spark.style.pointerEvents="none";
+
+    document.body.appendChild(spark);
+
+    const x=
+      (Math.random()-.5)*500;
+
+    const y=
+      (Math.random()-.5)*500;
+
+    spark.animate(
+
+      [
+        {
+          transform:"translate(0,0) scale(1)",
+          opacity:1
+        },
+
+        {
+          transform:
+            `translate(${x}px,${y}px) scale(.2)`,
+          opacity:0
+        }
+      ],
+
+      {
+        duration:1200,
+        easing:"ease-out"
+      }
+
+    );
+
+    setTimeout(()=>{
+
+      spark.remove();
+
+    },1300);
+
+  }
+
+}
+
+
+/* =========================
+   FINAL SCREEN ENHANCEMENT
+========================= */
+
+const originalCompleteGame=
+  completeGame;
+
+
+/*
+   Keep the original game progression,
+   but add fireworks when the final
+   challenge is completed.
+*/
+
+completeGame=function(number){
+
+  if(number===8){
+
+    createFirework();
+
+    setTimeout(()=>{
+
+      originalCompleteGame(number);
+
+      createFirework();
+
+      setTimeout(createFirework,500);
+
+    },700);
+
+    return;
+
+  }
+
+  originalCompleteGame(number);
+
+};
+
+
+/* =========================
+   EXTRA CLICK EFFECT
+========================= */
+
+document.addEventListener("click",function(event){
+
+  const button=
+    event.target.closest("button");
+
+  if(!button) return;
+
+  const mini=
+    document.createElement("span");
+
+  mini.innerText="❤️";
+
+  mini.style.position="fixed";
+
+  mini.style.left=
+    event.clientX+"px";
+
+  mini.style.top=
+    event.clientY+"px";
+
+  mini.style.pointerEvents="none";
+
+  mini.style.zIndex="2000";
+
+  mini.style.fontSize="18px";
+
+  document.body.appendChild(mini);
+
+  mini.animate(
+
+    [
+      {
+        transform:"translate(-50%,-50%) scale(.5)",
+        opacity:1
+      },
+      {
+        transform:
+          "translate(-50%,-120px) scale(1.5)",
+        opacity:0
+      }
+    ],
+
+    {
+      duration:650,
+      easing:"ease-out"
+    }
+
+  );
+
+  setTimeout(()=>{
+
+    mini.remove();
+
+  },700);
+
+});
+
+
+/* =========================
+   INITIAL MENU STATE
+========================= */
+
+updateOverall();
+
+
+</script>
+
+</body>
+</html>
